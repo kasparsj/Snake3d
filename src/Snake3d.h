@@ -37,6 +37,8 @@ public:
     bool checkCollision(const ofVec3f &p);
     bool checkApple(const ofVec3f &p);
     void keyPressed(int key);
+    void turn(int key);
+    void rotate(int key);
     
     int getSpeed() {
         return speed[0];

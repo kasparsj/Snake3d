@@ -20,8 +20,8 @@ void Snake3d::setup(ofVec3f gridSize, ofVec3f cellSize, int length) {
     keys[OF_KEY_RIGHT] = ofVec3f(1, 0, 0);
     keys[OF_KEY_DOWN] = ofVec3f(0, 0, 1);
     keys[OF_KEY_UP] = ofVec3f(0, 0, -1);
-    keys['a'] = ofVec3f(0, 0, 1);
-    keys['d'] = ofVec3f(0, 0, -1);
+    keys['a'] = ofVec3f(0, 0, -1);
+    keys['d'] = ofVec3f(0, 0, 1);
     keys['w'] = ofVec3f(1, 0, 0);
     keys['s'] = ofVec3f(-1, 0, 0);
 }
@@ -164,7 +164,7 @@ void Snake3d::drawApple() {
         apple.setPosition(point.x, point.y, point.z);
         apple.drawFaces();
         
-        if (true) {
+        if (false) {
             point = apples[i] * cellSize;
             float minZ = gridSize.z * cellSize.z / -2.f;
             float maxZ = gridSize.z * cellSize.z / 2.f;
@@ -199,28 +199,41 @@ void Snake3d::drawHoles() {
 }
 
 void Snake3d::keyPressed(int key) {
+    std::map<int, int> inverseKeys = {{OF_KEY_LEFT, OF_KEY_RIGHT}, {OF_KEY_RIGHT, OF_KEY_LEFT}, {OF_KEY_UP, OF_KEY_DOWN}, {OF_KEY_DOWN, OF_KEY_UP}};
+    std::map<int, int> similarKeys = {{OF_KEY_LEFT, 'a'}, {OF_KEY_RIGHT, 'd'}, {OF_KEY_UP, 'w'}, {OF_KEY_DOWN, 's'}};
     switch (key) {
         case OF_KEY_LEFT:
         case OF_KEY_RIGHT:
         case OF_KEY_DOWN:
         case OF_KEY_UP:
-            if (abs(lastArrowKey - key) != 2) {
-                dir = keys[key];
-                lastArrowKey = key;
+            if (lastArrowKey == key || lastArrowKey == inverseKeys[key]) {
+                rotate(similarKeys[key]);
             }
+            else {
+                turn(key);
+            }
+            lastArrowKey = key;
             break;
         case 'w':
         case 's':
         case 'a':
         case 'd': {
-            rotationTarget *= ofQuaternion(90, keys[key]);
-            ofVec3f axis = -keys[key] * rotationTarget.inverse();
-            dir.rotate(90, axis);
-            keys[OF_KEY_LEFT].rotate(90, axis);
-            keys[OF_KEY_RIGHT].rotate(90, axis);
-            keys[OF_KEY_DOWN].rotate(90, axis);
-            keys[OF_KEY_UP].rotate(90, axis);
+            rotate(key);
             break;
         }
     }
+}
+
+void Snake3d::turn(int key) {
+    dir = keys[key];
+}
+
+void Snake3d::rotate(int key) {
+    rotationTarget *= ofQuaternion(90, keys[key]);
+    ofVec3f axis = -keys[key] * rotationTarget.inverse();
+    dir.rotate(90, axis);
+    keys[OF_KEY_LEFT].rotate(90, axis);
+    keys[OF_KEY_RIGHT].rotate(90, axis);
+    keys[OF_KEY_DOWN].rotate(90, axis);
+    keys[OF_KEY_UP].rotate(90, axis);
 }
