@@ -17,8 +17,8 @@ void ofApp::setup(){
     keys[OF_KEY_RIGHT] = ofVec3f(1, 0, 0);
     keys[OF_KEY_DOWN] = ofVec3f(0, 0, 1);
     keys[OF_KEY_UP] = ofVec3f(0, 0, -1);
-    keys['a'] = ofVec3f(0, 0, -1);
-    keys['d'] = ofVec3f(0, 0, 1);
+    keys['a'] = ofVec3f(0, 0, 1);
+    keys['d'] = ofVec3f(0, 0, -1);
     keys['w'] = ofVec3f(1, 0, 0);
     keys['s'] = ofVec3f(-1, 0, 0);
 }
@@ -27,11 +27,11 @@ void ofApp::setup(){
 void ofApp::update() {
     if (rotationTarget.asVec3().match(rotation.asVec3(), 0.001f)) {
         rotation = rotationTarget;
-        snake.update();
     }
     else {
         rotation += (rotationTarget - rotation) * rotationSpeed;
     }
+    snake.update();
 }
 
 //--------------------------------------------------------------
@@ -64,9 +64,6 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if (rotation != rotationTarget) {
-        return;
-    }
     switch (key) {
         case OF_KEY_LEFT:
         case OF_KEY_RIGHT:
