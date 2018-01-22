@@ -2,6 +2,6 @@
 
 Snake 3d written in c++ / OpenFrameworks.
 
-Use **arrow keys** to navigate on x and y axis, and **wasd keys** to rotate axis.
+Use **arrow keys** to move around.
 
 ![Screenshot](https://raw.githubusercontent.com/kasparsj/Snake3d/master/screen.png)

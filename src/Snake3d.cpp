@@ -214,13 +214,13 @@ void Snake3d::keyPressed(int key) {
             }
             lastArrowKey = key;
             break;
-        case 'w':
-        case 's':
-        case 'a':
-        case 'd': {
-            rotate(key);
-            break;
-        }
+//        case 'w':
+//        case 's':
+//        case 'a':
+//        case 'd': {
+//            rotate(key);
+//            break;
+//        }
     }
 }
 
