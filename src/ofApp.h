@@ -26,12 +26,4 @@ public:
 private:
     Snake3d snake;
     ofCamera camera;
-    ofQuaternion rotation;
-    ofQuaternion rotationTarget;
-    ofVec3f gridSize;
-    ofVec3f cellSize;
-    ofVec3f boxSize;
-    float rotationSpeed = 0.1f;
-    std::map<int, ofVec3f> keys;
-    int lastArrowKey;
 };
